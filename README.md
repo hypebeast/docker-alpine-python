@@ -32,9 +32,7 @@ This image features:
 
 ## Usage
 
-TODO: docker run, etc.
-
-If you run this image the command `python` gets started. You can specify your own command:
+The command `python` gets started if you run this image. But you can also specify your own command:
 
 ```shell
 docker run -rm -it -v "$(pwd)":/app -w /app sruml/alpine-python:2.7 python app.py
@@ -47,8 +45,8 @@ In most cases you will extend this Docker image in order to run your application
 The following example shows how to run a simple web application (e.g. Flask app):
 
 ```dockerfile
-
 FROM sruml/alpine-python:2.7-onbuild
+
 # Expose the port for the Flask app
 EXPOSE 5000
 
