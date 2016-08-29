@@ -18,7 +18,9 @@ This image features:
 ## Supported Tags
 
   * 2.7 ([Dockerfile]())
+  * 2.7-onbuild ([Dockerfile]())
   * 3.5 ([Dockerfile]())
+  * 3.5-onbuild ([Dockerfile]())
 
 
 ## Goals
@@ -32,7 +34,49 @@ This image features:
 
 TODO: docker run, etc.
 
+If you run this image the command `python` gets started. You can specify your own command:
+
+```shell
+docker run -rm -it -v "$(pwd)":/app -w /app sruml/alpine-python:2.7 python app.py
+```
+
 ### Using a custom Dockerfile
+
+In most cases you will extend this Docker image in order to run your application.
+
+The following example shows how to run a simple web application (e.g. Flask app):
+
+```dockerfile
+
+FROM sruml/alpine-python:2.7-onbuild
+# Expose the port for the Flask app
+EXPOSE 5000
+
+# Run the Flask app
+CMD python flask_app.py
+```
+
+Build your image:
+
+```shell
+docker build -i hypebeast/webapp .
+```
+
+Mount your application folder into the container and run it:
+
+```shell
+docker run -rm -v "$(pwd)":/app -w /app -p 5000:5000 hypebeast/webapp
+```
+
+### Use the s6-supervise process manager
+
+A better way to run a Python application is to use the _s6-supervise_ process manager.
+
+In order to use s6-supervise to manage your application you need to create a _run_ file and put it to the `/etc/services.d` directory.
+
+```dockerfile
+TODO
+```
 
 TODO
 

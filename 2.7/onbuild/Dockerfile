@@ -1,4 +1,4 @@
-FROM hypebeast/alpine-python:2.7
+FROM sruml/alpine-python:2.7
 
 # install requirements
 ONBUILD COPY ./requirements.txt /tmp/requirements.txt
