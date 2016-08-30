@@ -116,7 +116,6 @@ ADD . /app
 EXPOSE 5000
 ```
 
-
 ## Examples
 
 See the [examples](https://github.com/hypebeast/docker-alpine-python/tree/master/examples) for more usage examples.
