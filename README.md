@@ -41,17 +41,28 @@ The `onbuild` images are running `pip install -r requirements.txt` during the bu
 
 ## Usage
 
-The command `python` is started during the start of a container. But you can also specify your own command:
+By default, this container doesn't actually do anything other than provide the building blocks for a Docker container that includes Python.
+
+If you want to run a Python application, you can specify your own command:
 
 ```shell
 docker run -rm -it -v "$(pwd)":/app -w /app sruml/alpine-python:2.7 python app.py
 ```
 
-### Using a custom Dockerfile
+### Custom Dockerfile
 
 In most cases you will extend this Docker image in order to run your own  application.
 
-The following example shows how to run a simple web application (e.g. Flask app):
+To use this image include `sruml/alpine-python:2.7` at the top of your `Dockerfile`.
+
+ Inheriting from `sruml/alpine-python:2.7` provides you with the ability to easily start your Python application using s6. You have two options for process management:
+
+  * s6 can keep it running for you, restarting it when it crashes.
+  * The entire container can exit allowing the host machine to kick in and restart it.
+
+See [docker-alpine](https://github.com/smebberson/docker-alpine) for more information.
+
+The following example shows how to run a simple web application (e.g. Flask app) with the later option:
 
 ```dockerfile
 FROM sruml/alpine-python:2.7-onbuild
@@ -60,29 +71,49 @@ FROM sruml/alpine-python:2.7-onbuild
 EXPOSE 5000
 
 # Run the Flask app
-CMD python flask_app.py
+CMD ["python", "flask_app.py"]
 ```
 
 Build your image:
 
 ```shell
-docker build -i hypebeast/webapp .
+docker build -i sruml/webapp .
 ```
 
 Mount your application folder into the container and run it:
 
 ```shell
-docker run -rm -v "$(pwd)":/app -w /app -p 5000:5000 hypebeast/webapp
+docker run -rm -v "$(pwd)":/app -w /app -p 5000:5000 sruml/webapp
 ```
 
-### Use the s6-supervise process manager
+### Use s6 for automatic restarts
 
-A better way to run a Python application as aservice is to use the _s6-supervise_ process manager.
+You can also run your Python application as a service with the help of the _s6_ process manager. In this case the application gets automatically restarted if it exits.
 
-In order to use s6-supervise to manage your application you need to create a _run_ file and put it to the `/etc/services.d` directory.
+In order to use s6-supervise to manage your application you need to create a _run_ file and put it into the `/etc/services.d` directory.
+
+  * Create a folder `/etc/services.d/app`
+  * Create a file called `run` in this folder and make it executable
+  * This file starts your Python application
+
+```shell
+#!/usr/bin/with-contenv sh
+
+# cd into our directory
+cd /app
+
+# start your Python application
+python app.py
+```
 
 ```dockerfile
-TODO
+FROM sruml/alpine-python:2.7-onbuild
+
+# Add your application
+ADD . /app
+
+# Expose the port for the Flask app
+EXPOSE 5000
 ```
 
 

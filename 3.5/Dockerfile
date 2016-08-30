@@ -21,7 +21,3 @@ RUN cd /usr/bin \
   && ln -sf python3.5 python \
   && ln -sf python-config3.5 python-config \
   && ln -sf pip3.5 pip
-
-# Default command to run. Specify your own command to run your python application.
-# Use s6 if you want to run your application as a daemon.
-CMD python

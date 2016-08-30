@@ -20,7 +20,3 @@ RUN cd /usr/bin \
   && ln -sf python2.7 python \
   && ln -sf python2.7-config python-config \
   && ln -sf pip2.7 pip
-
-# Default command to run. Specify your own command to run your python application.
-# Use s6 if you want to run your application as a service.
-CMD python
