@@ -77,7 +77,7 @@ docker run -rm -v "$(pwd)":/app -w /app -p 5000:5000 hypebeast/webapp
 
 ### Use the s6-supervise process manager
 
-A better way to run a Python application is to use the _s6-supervise_ process manager.
+A better way to run a Python application as aservice is to use the _s6-supervise_ process manager.
 
 In order to use s6-supervise to manage your application you need to create a _run_ file and put it to the `/etc/services.d` directory.
 
@@ -85,10 +85,8 @@ In order to use s6-supervise to manage your application you need to create a _ru
 TODO
 ```
 
-TODO
 
 ## License
-
 
 The code in this repository, unless otherwise noted, is MIT licensed. See the `LICENSE` file in this repository.
 

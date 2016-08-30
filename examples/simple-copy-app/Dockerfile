@@ -5,8 +5,5 @@ ADD . /app
 
 WORKDIR /app
 
-# Expose the Flask port
-EXPOSE 5000
-
 # Run the Flask app
 CMD python app.py
