@@ -17,5 +17,5 @@ stop:
 	docker stop $(CONTAINER_NAME)
 
 clean:
-	docker rm $(CONTAINER_NAME) \
-	docker images | grep '$(IMAGE_NAME)' | awk '{print $3}' | xargs docker rmi
+	docker ps -a | grep '$(CONTAINER_NAME)' | awk '{print $$1}' | xargs docker rm \
+	docker images | grep '$(IMAGE_NAME)' | awk '{print $$3}' | xargs docker rmi

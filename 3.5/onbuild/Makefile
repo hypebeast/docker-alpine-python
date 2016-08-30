@@ -2,7 +2,7 @@
 
 IMAGE_NAME = hypebeast/alpine-python-onbuild
 CONTAINER_NAME = alpine-python
-TAG = 2.7-onbuild
+TAG = 3.5-onbuild
 
 build:
 	docker build -t $(IMAGE_NAME):$(TAG) .

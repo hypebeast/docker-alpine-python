@@ -1,8 +1,8 @@
 .PHONY: clean build run stop inspect
 
-IMAGE_NAME = hypebeast/alpine-python-onbuild
+IMAGE_NAME = hypebeast/alpine-python
 CONTAINER_NAME = alpine-python
-TAG = 2.7-onbuild
+TAG = 3.5
 
 build:
 	docker build -t $(IMAGE_NAME):$(TAG) .
